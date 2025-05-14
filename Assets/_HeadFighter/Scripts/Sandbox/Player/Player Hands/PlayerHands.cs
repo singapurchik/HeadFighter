@@ -12,6 +12,7 @@ namespace HeadFighter.Player
 
 		[Inject] private GameCameraRotator _cameraRotator;
 		[Inject] private IHandDamageDealer _damageDealer;
+		[Inject] private IVignetteEffect _vignetteEffect;
 		
 		private HandType _currentAttackHand;
 		
@@ -43,7 +44,7 @@ namespace HeadFighter.Player
 
 		public void RightAttack() => Attack(_rightHand, _leftHand);
 
-		public void LeftAttack()=> Attack(_leftHand, _rightHand);
+		public void LeftAttack() => Attack(_leftHand, _rightHand);
 
 		private void Attack(PlayerHand attackHand, PlayerHand waitingHand)
 		{
@@ -52,15 +53,16 @@ namespace HeadFighter.Player
 			_currentAttackHand = attackHand.Type;
 			_isAttackProcess = true;
 		}
+
+		private void OnPunch()
+		{
+			_vignetteEffect.IncreaseAlpha();
+			_damageDealer.DealDamage(_currentAttackHand);
+		}
 		
 		private void InvokeOnAttackComplete()
 		{
 			OnAttackComplete?.Invoke();
-		}
-
-		private void OnPunch()
-		{
-			_damageDealer.DealDamage(_currentAttackHand);
 			_isAttackProcess = false;
 		}
 

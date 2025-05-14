@@ -14,6 +14,7 @@ namespace HeadFighter
 		[SerializeField] private GameCameraRotator _cameraRotator;
 		[SerializeField] private CameraShaker _cameraShaker;
 		[SerializeField] private PlayerInput _playerInput;
+		[SerializeField] private Vignette _vignette;
 		[SerializeField] private Sandbox _sandbox;
 		[SerializeField] private Health _health;
 
@@ -26,6 +27,7 @@ namespace HeadFighter
 			Container.Bind<IPlayerInputEnabler>().FromInstance(_playerInput).WhenInjectedIntoInstance(_sandbox);
 			Container.Bind<IReadOnlyDamageDealer>().FromInstance(_playerDamageDealer).AsSingle();
 			Container.Bind<ICameraShaker>().FromInstance(_cameraShaker).AsSingle();
+			Container.Bind<IVignetteEffect>().FromInstance(_vignette).AsSingle();
 			Container.Bind<IReadOnlyHeath>().FromInstance(_health).AsSingle();
 			Container.BindInstance(_cameraRotator).AsSingle();
 		}
@@ -39,6 +41,7 @@ namespace HeadFighter
 			_cameraRotator = FindObjectOfType<GameCameraRotator>(true);
 			_cameraShaker = FindObjectOfType<CameraShaker>(true);
 			_playerInput = FindObjectOfType<PlayerInput>(true);
+			_vignette = FindObjectOfType<Vignette>(true);
 			_sandbox = FindObjectOfType<Sandbox>(true);
 			_health = FindObjectOfType<Health>(true);
 		}

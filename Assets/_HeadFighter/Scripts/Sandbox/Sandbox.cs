@@ -13,6 +13,7 @@ namespace HeadFighter
 		
 		[SerializeField] private float _slowdownTimeScale = 0.25f;
 		[SerializeField] private float _slowdownDuration = 1f;
+		[SerializeField] private float _slowdownDelay = 0.25f;
 		[SerializeField] private float _returnToNormalDuration = 1f;
 
 		[Inject] private ICameraShaker _cameraShaker;
@@ -40,8 +41,9 @@ namespace HeadFighter
 		private IEnumerator GameOverRoutine()
 		{
 			_cameraShaker.Play(_gameOverImpulse);
+			yield return new WaitForSeconds(_slowdownDelay);
+			
 			Time.timeScale = _slowdownTimeScale;
-
 			yield return new WaitForSecondsRealtime(_slowdownDuration);
 
 			var elapsed = 0f;
