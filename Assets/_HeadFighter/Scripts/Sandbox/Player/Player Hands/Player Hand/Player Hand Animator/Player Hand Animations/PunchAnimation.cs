@@ -13,9 +13,11 @@ namespace HeadFighter.Animations.Player
 
 		private Vector3 _defaultLocalPosition;
 		private Tween _currentTween;
+
+		private bool _isFirstAnimStep = true;
 		
-		private Action _currentOnCompleteAction;
-		private Action _currentOnPunchAction;
+		private Action _onPunchCompleteAction;
+		private Action _onPunchAction;
 
 		public override void Initialize(Transform transform)
 		{
@@ -23,10 +25,10 @@ namespace HeadFighter.Animations.Player
 			_defaultLocalPosition = transform.localPosition;
 		}
 
-		public void Play(Action onPunchAction = null, Action onCompleteAction = null)
+		public void Play(Action onPunchAction, Action onCompleteAction)
 		{
-			_currentOnPunchAction = onPunchAction;
-			_currentOnCompleteAction = onCompleteAction;
+			_onPunchCompleteAction = onCompleteAction;
+			_onPunchAction = onPunchAction;
 
 			Stop();
 			CreateTween();
@@ -42,27 +44,31 @@ namespace HeadFighter.Animations.Player
 
 		protected override void CreateTween()
 		{
-			var isFirstStep = true;
+			_isFirstAnimStep = true;
 
 			var targetPosition = Transform.position + Transform.forward * _punchOffset;
 
 			_currentTween = Transform.DOMove(targetPosition, _punchDuration)
 				.SetEase(_punchEase)
 				.SetLoops(2, LoopType.Yoyo)
-				.OnStepComplete(() =>
-				{
-					if (isFirstStep)
-					{
-						isFirstStep = false;
-						_currentOnPunchAction?.Invoke();
-					}
-				})
-				.OnComplete(() =>
-				{
-					_currentOnCompleteAction?.Invoke();
-					_currentOnPunchAction = null;
-					_currentOnCompleteAction = null;
-				});
+				.OnStepComplete(OnStepComplete)
+				.OnComplete(OnAnimComplete);
+		}
+
+		private void OnStepComplete()
+		{
+			if (_isFirstAnimStep)
+			{
+				_isFirstAnimStep = false;
+				_onPunchAction?.Invoke();
+			}
+		}
+
+		private void OnAnimComplete()
+		{
+			_onPunchCompleteAction?.Invoke();
+			_onPunchAction = null;
+			_onPunchCompleteAction = null;
 		}
 	}
 }

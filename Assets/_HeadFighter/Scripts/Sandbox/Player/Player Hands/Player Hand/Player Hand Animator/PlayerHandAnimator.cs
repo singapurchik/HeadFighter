@@ -2,6 +2,8 @@ using HeadFighter.Animations.Player;
 using HeadFighter.Animations;
 using UnityEngine;
 using System;
+using HeadFighter.Cameras;
+using Zenject;
 
 public class PlayerHandAnimator : MonoBehaviour
 {

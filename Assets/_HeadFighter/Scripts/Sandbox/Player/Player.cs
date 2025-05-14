@@ -1,3 +1,5 @@
+using Cinemachine;
+using HeadFighter.Cameras;
 using UnityEngine;
 using Zenject;
 
@@ -5,10 +7,11 @@ namespace HeadFighter.Player
 {
 	public class Player : MonoBehaviour
 	{
+		[SerializeField] private CinemachineImpulseSource _dealDamageImpulse;
+		
+		[Inject] private ICameraShaker _cameraShaker;
 		[Inject] private PlayerInput _input;
 		[Inject] private PlayerHands _hands;
-
-		private bool _isProcessAttack;
 
 		private void OnEnable()
 		{
@@ -37,6 +40,8 @@ namespace HeadFighter.Player
 
 		private void Attack(HandType handType)
 		{
+			_cameraShaker.Play(_dealDamageImpulse);
+
 			switch (handType)
 			{
 				case HandType.Left:
