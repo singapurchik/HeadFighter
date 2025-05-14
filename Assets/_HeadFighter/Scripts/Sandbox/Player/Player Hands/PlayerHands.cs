@@ -1,8 +1,7 @@
+using HeadFighter.Cameras;
 using UnityEngine;
 using Zenject;
 using System;
-using HeadFighter.Cameras;
-using UnityEngine.XR;
 
 namespace HeadFighter.Player
 {
@@ -12,6 +11,7 @@ namespace HeadFighter.Player
 		[Inject (Id = HandType.Left)] private PlayerHand _leftHand;
 
 		[Inject] private GameCameraRotator _cameraRotator;
+		[Inject] private IHandDamageDealer _damageDealer;
 		
 		private HandType _currentAttackHand;
 		
@@ -21,14 +21,18 @@ namespace HeadFighter.Player
 
 		private void OnEnable()
 		{
-			_rightHand.OnPunchCompete += InvokeOnAttackComplete;
-			_leftHand.OnPunchCompete += InvokeOnAttackComplete;
+			_rightHand.OnPunchAnimCompete += InvokeOnAttackComplete;
+			_leftHand.OnPunchAnimCompete += InvokeOnAttackComplete;
+			_rightHand.OnPunch += OnPunch;
+			_leftHand.OnPunch += OnPunch;
 		}
 
 		private void OnDisable()
 		{
-			_rightHand.OnPunchCompete -= InvokeOnAttackComplete;
-			_leftHand.OnPunchCompete -= InvokeOnAttackComplete;
+			_rightHand.OnPunchAnimCompete -= InvokeOnAttackComplete;
+			_leftHand.OnPunchAnimCompete -= InvokeOnAttackComplete;
+			_rightHand.OnPunch -= OnPunch;
+			_leftHand.OnPunch -= OnPunch;
 		}
 
 		public void Idle()
@@ -51,8 +55,13 @@ namespace HeadFighter.Player
 		
 		private void InvokeOnAttackComplete()
 		{
-			_isAttackProcess = false;
 			OnAttackComplete?.Invoke();
+		}
+
+		private void OnPunch()
+		{
+			_damageDealer.DealDamage(_currentAttackHand);
+			_isAttackProcess = false;
 		}
 
 		private void Update()

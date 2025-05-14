@@ -1,5 +1,5 @@
-using Cinemachine;
 using HeadFighter.Cameras;
+using Cinemachine;
 using UnityEngine;
 using Zenject;
 

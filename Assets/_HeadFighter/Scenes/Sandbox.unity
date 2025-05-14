@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotateSideAngle: 5
+  _rotateSideSpeed: 90
 --- !u!114 &83385161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +260,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameCamera: {fileID: 1381978259}
-  _shaker: {fileID: 83385159}
 --- !u!114 &83385162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1131,6 +1131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerDamageDealer: {fileID: 1620826145}
   _headDamageHandler: {fileID: 918424284}
+  _cameraRotator: {fileID: 83385160}
   _cameraShaker: {fileID: 83385159}
 --- !u!114 &2058921987
 MonoBehaviour:

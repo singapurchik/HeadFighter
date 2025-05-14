@@ -8,13 +8,13 @@ namespace HeadFighter.Player
 	{
 		[field: SerializeField] public HandType Type { get; private set; }
 
-		[Inject] private IHandDamageDealer _damageDealer;
 		[Inject] private PlayerHandAnimator _animator;
 
 		private Quaternion _defaultRotation;
 		private Vector3 _defaultPosition;
 
-		public event Action OnPunchCompete;
+		public event Action OnPunchAnimCompete;
+		public event Action OnPunch;
 		
 		private void Awake()
 		{
@@ -31,7 +31,7 @@ namespace HeadFighter.Player
 		public void Punch()
 		{
 			ResetProperties();
-			_animator.PlayPunchAnim(OnPunch, OnPunchCompete);
+			_animator.PlayPunchAnim(OnPunch, OnPunchAnimCompete);
 		}
 
 		public void Wait()
@@ -44,7 +44,5 @@ namespace HeadFighter.Player
 			_animator.TryStopCurrentAnim();
 			transform.SetLocalPositionAndRotation(_defaultPosition, _defaultRotation);
 		}
-
-		private void OnPunch() => _damageDealer.DealDamage(Type);
 	}	
 }

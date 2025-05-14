@@ -25,7 +25,6 @@ namespace HeadFighter.Cameras
 
 		public void RotateRight() => RequestRotateSide(_rotateSideAngle);
 		
-		
 		public void RotateLeft() => RequestRotateSide(-_rotateSideAngle);
 
 		private void RequestRotateSide(float angle)
