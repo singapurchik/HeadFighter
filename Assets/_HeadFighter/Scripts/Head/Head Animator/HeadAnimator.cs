@@ -1,13 +1,12 @@
-using HeadFighter.Animations;
 using UnityEngine;
 
-namespace HeadFighter.Heads.Animations
+namespace HeadFighter.Animations.Heads
 
 {
 	public class HeadAnimator : MonoBehaviour
 	{
-		[SerializeField] private HeadDamageAnimation _takeDamageRightSideAnim;
-		[SerializeField] private HeadDamageAnimation _takeDamageLeftSideAnim;
+		[SerializeField] private TakeDamageAnimation _takeDamageRightSideAnim;
+		[SerializeField] private TakeDamageAnimation _takeDamageLeftSideAnim;
 
 		private TweenAnimation _currentAnim;
 

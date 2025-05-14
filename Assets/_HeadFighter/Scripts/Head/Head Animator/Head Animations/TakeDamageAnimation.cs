@@ -1,12 +1,11 @@
-using HeadFighter.Animations;
 using UnityEngine;
 using DG.Tweening;
 using System;
 
-namespace HeadFighter.Heads.Animations
+namespace HeadFighter.Animations.Heads
 {
 	[Serializable]
-	public class HeadDamageAnimation : TweenAnimation
+	public class TakeDamageAnimation : TweenAnimation
 	{
 		[Header("MOVE PROPERTIES")]
 		[SerializeField] private Vector3 _endLocalPosition;

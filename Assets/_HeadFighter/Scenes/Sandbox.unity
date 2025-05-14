@@ -502,6 +502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageHandler: {fileID: 918424284}
+  _headAnimator: {fileID: 918424286}
   _health: {fileID: 918424285}
   _head: {fileID: 918424281}
 --- !u!114 &918424283
@@ -559,15 +560,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d434d867127f4aeb9033b5c9f3fd0097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _takeDamageLeftSideAnim:
-    _startLocalPosition: {x: 0, y: 0.41, z: -0.8484024}
-    _startLocalRotation: {x: 16.261, y: 180, z: 0}
-    _endLocalPosition: {x: 0.2222817, y: 0.3660405, z: -1.19528}
-    _endLocalRotation: {x: 1, y: 197.436, z: -10.755}
-    _punchScale: 1
+  _takeDamageRightSideAnim:
+    _endLocalPosition: {x: -0.2132729, y: 0.3649051, z: -1.176339}
+    _moveDuration: 0.15
+    _moveEase: 9
+    _endLocalRotation: {x: 1.53, y: 164.595, z: 10.194}
+    _rotateDuration: 0.15
+    _rotateEase: 9
+    _punchScale: {x: -0.25, y: -0.25, z: -0.25}
     _punchVibrato: 5
     _punchElasticity: 0.5
-    _duration: 0.5
+    _punchScaleDuration: 0.15
+    _punchScaleEase: 30
+  _takeDamageLeftSideAnim:
+    _endLocalPosition: {x: 0.2222817, y: 0.3660405, z: -1.19528}
+    _moveDuration: 0.15
+    _moveEase: 9
+    _endLocalRotation: {x: 1, y: 197.436, z: -10.755}
+    _rotateDuration: 0.15
+    _rotateEase: 9
+    _punchScale: {x: -0.25, y: -0.25, z: -0.25}
+    _punchVibrato: 5
+    _punchElasticity: 0.5
+    _punchScaleDuration: 0.15
+    _punchScaleEase: 30
 --- !u!1 &1620826139
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,6 +678,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e80e2c6a9947f2b849c88e2653104a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rightHandKey: 101
+  _leftHandKey: 113
 --- !u!1 &2058921983
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +785,16 @@ PrefabInstance:
         type: 3}
       propertyPath: _punchDuration
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1309665926036958913, guid: 80e875f51bf576f4aba33412f2c41bee,
+        type: 3}
+      propertyPath: _idleAnim._idleEase
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1309665926036958913, guid: 80e875f51bf576f4aba33412f2c41bee,
+        type: 3}
+      propertyPath: _punchAnim._punchEase
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 6698885500131153156, guid: 80e875f51bf576f4aba33412f2c41bee,
         type: 3}

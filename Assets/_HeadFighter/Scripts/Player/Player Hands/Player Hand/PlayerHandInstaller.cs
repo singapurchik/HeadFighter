@@ -1,3 +1,4 @@
+using HeadFighter.Animations.Player;
 using UnityEngine;
 using VInspector;
 using Zenject;
