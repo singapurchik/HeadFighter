@@ -13,6 +13,9 @@ namespace HeadFighter
 		[SerializeField] private HeadDamageHandler _headDamageHandler;
 		[SerializeField] private GameCameraRotator _cameraRotator;
 		[SerializeField] private CameraShaker _cameraShaker;
+		[SerializeField] private PlayerInput _playerInput;
+		[SerializeField] private Sandbox _sandbox;
+		[SerializeField] private Health _health;
 
 		public override void InstallBindings()
 		{
@@ -20,8 +23,10 @@ namespace HeadFighter
 				.FromInstance(_headDamageHandler)
 				.WhenInjectedIntoInstance(_playerDamageDealer);
 
+			Container.Bind<IPlayerInputEnabler>().FromInstance(_playerInput).WhenInjectedIntoInstance(_sandbox);
 			Container.Bind<IReadOnlyDamageDealer>().FromInstance(_playerDamageDealer).AsSingle();
 			Container.Bind<ICameraShaker>().FromInstance(_cameraShaker).AsSingle();
+			Container.Bind<IReadOnlyHeath>().FromInstance(_health).AsSingle();
 			Container.BindInstance(_cameraRotator).AsSingle();
 		}
 
@@ -33,6 +38,9 @@ namespace HeadFighter
 			_headDamageHandler = FindObjectOfType<HeadDamageHandler>(true);
 			_cameraRotator = FindObjectOfType<GameCameraRotator>(true);
 			_cameraShaker = FindObjectOfType<CameraShaker>(true);
+			_playerInput = FindObjectOfType<PlayerInput>(true);
+			_sandbox = FindObjectOfType<Sandbox>(true);
+			_health = FindObjectOfType<Health>(true);
 		}
 #endif
 	}
