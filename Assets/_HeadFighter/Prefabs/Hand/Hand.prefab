@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5992696148944536145}
   - component: {fileID: 772716476229438031}
   - component: {fileID: 6968124091869572264}
+  - component: {fileID: 7720805051518372138}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
@@ -66,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 646bffcdb95944f782fe5dba84749dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _handDamageDealer: {fileID: 7720805051518372138}
   _animator: {fileID: 6968124091869572264}
   _hand: {fileID: 772716476229438031}
 --- !u!114 &772716476229438031
@@ -96,6 +98,22 @@ MonoBehaviour:
   _idleOffset: -0.1
   _idleDuration: 0.5
   _idleEase: 0
+  _punchOffset: 1
+  _punchDuration: 0.5
+  _punchEase: 0
+--- !u!114 &7720805051518372138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3344020679098013549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24d20f73da3b457881bbefe2c3dea683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 5
 --- !u!1 &3473538821164465011
 GameObject:
   m_ObjectHideFlags: 0

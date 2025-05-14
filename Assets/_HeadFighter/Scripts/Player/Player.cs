@@ -1,5 +1,4 @@
 using UnityEngine;
-using VInspector;
 using Zenject;
 
 namespace HeadFighter.Player
@@ -9,18 +8,20 @@ namespace HeadFighter.Player
 		[Inject] private PlayerInput _input;
 		[Inject] private PlayerHands _hands;
 
+		private bool _isProcessAttack;
+
 		private void OnEnable()
 		{
-			_input.OnRightKeyClick += OnRightKeyClick;
-			_input.OnLeftKeyClick += OnLeftKeyClick;
-			_hands.OnAttackComplete += Idle;
+			_input.OnRightHandKeyClicked += OnRightHandKeyClicked;
+			_input.OnLeftHandKeyClicked += OnLeftHandKeyClicked;
+			_hands.OnAttackComplete += OnAttackComplete;
 		}
 
 		private void OnDisable()
 		{
-			_input.OnRightKeyClick -= OnRightKeyClick;
-			_input.OnLeftKeyClick -= OnLeftKeyClick;
-			_hands.OnAttackComplete -= Idle;
+			_input.OnRightHandKeyClicked -= OnRightHandKeyClicked;
+			_input.OnLeftHandKeyClicked -= OnLeftHandKeyClicked;
+			_hands.OnAttackComplete -= OnAttackComplete;
 		}
 
 		private void Start()
@@ -28,13 +29,29 @@ namespace HeadFighter.Player
 			_hands.Idle();
 		}
 		
-		[Button]
 		private void Idle() => _hands.Idle();
 
-		[Button]
-		private void OnRightKeyClick() => _hands.RightAttack();
+		private void OnRightHandKeyClicked() => Attack(HandType.Right);
+
+		private void OnLeftHandKeyClicked() => Attack(HandType.Left);
+
+		private void Attack(HandType handType)
+		{
+			switch (handType)
+			{
+				case HandType.Left:
+					_hands.LeftAttack();
+					break;
+				case HandType.Right:
+				default:
+					_hands.RightAttack();
+					break;
+			}
+		}
 		
-		[Button]
-		private void OnLeftKeyClick() => _hands.LeftAttack();
+		private void OnAttackComplete()
+		{
+			Idle();
+		}
 	}
 }

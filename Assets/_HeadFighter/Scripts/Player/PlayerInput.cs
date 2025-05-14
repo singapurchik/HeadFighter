@@ -5,15 +5,18 @@ namespace HeadFighter.Player
 {
 	public class PlayerInput : MonoBehaviour
 	{
-		public event Action OnRightKeyClick;
-		public event Action OnLeftKeyClick;
+		[SerializeField] private KeyCode _rightHandKey = KeyCode.E;
+		[SerializeField] private KeyCode _leftHandKey = KeyCode.Q;
+		
+		public event Action OnRightHandKeyClicked;
+		public event Action OnLeftHandKeyClicked;
 		
 		private void Update()
 		{
-			if (Input.GetKeyDown(KeyCode.Q))
-				OnLeftKeyClick?.Invoke();
-			else if (Input.GetKeyDown(KeyCode.E))
-				OnRightKeyClick?.Invoke();
+			if (Input.GetKeyDown(_leftHandKey))
+				OnLeftHandKeyClicked?.Invoke();
+			else if (Input.GetKeyDown(_rightHandKey))
+				OnRightHandKeyClicked?.Invoke();
 		}
 	}
 }

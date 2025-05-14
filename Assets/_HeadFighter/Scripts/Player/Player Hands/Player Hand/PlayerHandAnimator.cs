@@ -30,14 +30,23 @@ namespace HeadFighter.Player
 				.SetLoops(-1, LoopType.Yoyo);
 		}
 
-		public void PlayPunchAnim(Action onCompleteAction = null)
+		public void PlayPunchAnim(Action onPunchAction, Action onCompleteAction = null)
 		{
-			Vector3 punchDirection = transform.forward * _punchOffset;
-			Vector3 targetPosition = transform.position + punchDirection;
+			var isFirstStep = true;
+
+			var targetPosition = transform.position + (transform.forward * _punchOffset);
 
 			_currentAnim = transform.DOMove(targetPosition, _punchDuration)
 				.SetEase(_punchEase)
 				.SetLoops(2, LoopType.Yoyo)
+				.OnStepComplete(() =>
+				{
+					if (isFirstStep)
+					{
+						onPunchAction?.Invoke();
+						isFirstStep = false;
+					}
+				})
 				.OnComplete(() => onCompleteAction?.Invoke());
 		}
 	}

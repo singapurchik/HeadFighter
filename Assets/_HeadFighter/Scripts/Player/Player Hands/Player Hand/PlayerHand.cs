@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using Zenject;
+using System;
 
 namespace HeadFighter.Player
 {
@@ -8,6 +8,7 @@ namespace HeadFighter.Player
 	{
 		[field: SerializeField] public HandType Type { get; private set; }
 
+		[Inject] private IHandDamageDealer _damageDealer;
 		[Inject] private PlayerHandAnimator _animator;
 
 		private Quaternion _defaultRotation;
@@ -30,7 +31,7 @@ namespace HeadFighter.Player
 		public void Punch()
 		{
 			ResetProperties();
-			_animator.PlayPunchAnim(OnPunchCompete);
+			_animator.PlayPunchAnim(OnPunch, OnPunchCompete);
 		}
 
 		public void Wait()
@@ -43,5 +44,7 @@ namespace HeadFighter.Player
 			_animator.TryStopCurrentAnim();
 			transform.SetLocalPositionAndRotation(_defaultPosition, _defaultRotation);
 		}
+
+		private void OnPunch() => _damageDealer.DealDamage(Type);
 	}	
 }

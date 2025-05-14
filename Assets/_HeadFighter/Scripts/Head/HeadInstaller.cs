@@ -1,0 +1,33 @@
+using HeadFighter.Heads.Animations;
+using UnityEngine;
+using VInspector;
+using Zenject;
+
+namespace HeadFighter.Heads
+{
+	public class HeadInstaller : MonoInstaller
+	{
+		[SerializeField] private HeadDamageHandler _damageHandler;
+		[SerializeField] private HeadAnimator _headAnimator;
+		[SerializeField] private Health _health;
+		[SerializeField] private Head _head;
+
+		public override void InstallBindings()
+		{
+			Container.BindInstance(_health).WhenInjectedIntoInstance(_damageHandler);
+			Container.Bind<IReadOnlyHeath>().FromInstance(_health).AsSingle();
+			Container.BindInstance(_headAnimator).AsSingle();
+		}
+
+#if UNITY_EDITOR
+		[Button]
+		private void FindDependencies()
+		{
+			_damageHandler = GetComponentInChildren<HeadDamageHandler>(true);
+			_headAnimator = GetComponentInChildren<HeadAnimator>(true);
+			_health = GetComponentInChildren<Health>(true);
+			_head = GetComponentInChildren<Head>(true);
+		}
+#endif
+	}
+}
